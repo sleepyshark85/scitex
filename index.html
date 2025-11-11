@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scitex Pte Ltd - Your One-Stop Shop for Global IT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #004a99;
+            --secondary: #00d4ff;
+            --accent: #ff6b35;
+            --success: #00c9a7;
+            --warning: #ffa940;
+        }
+
+        /* Dark Theme (default) */
+        [data-theme="dark"] {
+            --bg-primary: #0a1628;
+            --bg-secondary: #132340;
+            --bg-card: #1a2d4d;
+            --text-primary: #e0e6ed;
+            --text-secondary: #8b95a5;
+            --border-color: rgba(0, 212, 255, 0.2);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --gradient-start: rgba(0, 212, 255, 0.1);
+            --gradient-end: rgba(0, 102, 204, 0.1);
+            --icon-bg: rgba(0, 212, 255, 0.15);
+        }
+
+        /* Light Theme */
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f8fa;
+            --bg-card: #ffffff;
+            --text-primary: #1a2d4d;
+            --text-secondary: #5a6c7d;
+            --border-color: rgba(0, 102, 204, 0.2);
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gradient-start: rgba(0, 212, 255, 0.05);
+            --gradient-end: rgba(0, 102, 204, 0.05);
+            --icon-bg: rgba(0, 102, 204, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--bg-primary);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: background-color 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, var(--gradient-start) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--gradient-end) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .image-placeholder {
+            margin: 3rem auto;
+            padding: 8rem 2rem;
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-style: italic;
+            max-width: 1200px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+	    background-image: url("banner.jpg");
+	    background-size: 900px;
+	    background-position-y: -168px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        section:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Icon styles */
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .icon-box.accent {
+            background: linear-gradient(135deg, var(--accent) 0%, #ff8c5a 100%);
+        }
+
+        .icon-box.success {
+            background: linear-gradient(135deg, var(--success) 0%, #00e5b8 100%);
+        }
+
+        .icon-box.warning {
+            background: linear-gradient(135deg, var(--warning) 0%, #ffb85c 100%);
+        }
+
+        /* Product Showcase */
+        .product-card {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px var(--shadow);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--gradient-start) 0%, transparent 70%);
+            opacity: 0.5;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px var(--shadow);
+        }
+
+        .product-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-card h3 {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin: 0;
+        }
+
+        .product-card .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .feature-list li {
+            padding: 1rem;
+            padding-left: 3rem;
+            position: relative;
+            color: var(--text-primary);
+            background: var(--icon-bg);
+            margin-bottom: 0.8rem;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .feature-list li:hover {
+            transform: translateX(10px);
+        }
+
+        .feature-list li i {
+            position: absolute;
+            left: 1rem;
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+
+        /* Business Mastery Grid */
+        .mastery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .mastery-item {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .mastery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px var(--shadow);
+        }
+
+        .mastery-item:hover .icon-box {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .mastery-item h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .mastery-item p {
+            color: var(--text-secondary);
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px var(--shadow);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .service-card:hover i {
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .service-card p {
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 2.5rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: transform 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-item:hover {
+            transform: scale(1.08);
+        }
+
+        .stat-item i {
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        }
+
+        .contact h2 {
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-primary);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* About section text */
+        #about p {
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-right {
+                gap: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-links.mobile-show {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-primary);
+                padding: 1rem;
+                border-top: 1px solid var(--border-color);
+            }
+
+            section {
+                padding: 4rem 1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .theme-toggle {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .icon-box {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                SCITEX Pte Ltd
+            </a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#products"><i class="fas fa-box"></i> Products</a></li>
+                    <li><a href="#services"><i class="fas fa-cogs"></i> Services</a></li>
+                    <li><a href="#why-us"><i class="fas fa-trophy"></i> Why Us</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i id="theme-icon" class="fas fa-sun"></i>
+                    <span id="theme-text">Light</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Your One-Stop Shop for Global IT</h1>
+            <p>We specialize in connecting businesses with the software and services they need - efficiently, reliably, anywhere in the world.</p>
+            <div class="image-placeholder">
+            </div>
+            <a href="#contact" class="cta-button">
+                Let's Talk
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Who We Are -->
+    <section id="about">
+        <h2><i class="fas fa-users"></i> Who We Are</h2>
+        <p style="text-align: center; max-width: 900px; margin: 0 auto; font-size: 1.2rem;">
+            Scitex Pte Ltd is your one-stop shop for global trade in technology. We are well-versed in every operating system, network, software, and database your business runs on - big or small. We've seen it all, solved it all, and now we craft solutions that fit your goals perfectly.
+        </p>
+    </section>
+
+    <!-- Business Mastery -->
+    <section id="mastery">
+        <h2><i class="fas fa-chess-king"></i> Business Mastery</h2>
+        <div class="mastery-grid">
+            <div class="mastery-item">
+                <div class="icon-box">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3>Extensive Network</h3>
+                <p>Relationships with top suppliers and distributors worldwide mean you access the best tools, fastest.</p>
+            </div>
+            <div class="mastery-item">
+                <div class="icon-box success">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3>Seamless Logistics</h3>
+                <p>We manage sourcing, integration, and delivery end-to-end - so you stay focused on growth, not glitches.</p>
+            </div>
+            <div class="mastery-item">
+                <div class="icon-box warning">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h3>Expertise You Can Trust</h3>
+                <p>Our seasoned team delivers hands-on guidance at every step, turning complex tech into simple wins.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <h2><i class="fas fa-briefcase"></i> What We Deliver</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-project-diagram"></i>
+                <p>Connect you to ERP, CRM, and BI systems that speed up decisions and sales.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-cloud"></i>
+                <p>Scale secure cloud and data platforms that grow with your global operations.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-shield-alt"></i>
+                <p>Protect your business with fraud detection, compliance tools, and cyber defenses.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-robot"></i>
+                <p>Advise on blockchain, automation, and digital strategy that cut costs and open markets.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-tools"></i>
+                <p>Manage full IT lifecycle - updates, support, upgrades - so you lead, we maintain.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us -->
+    <section id="why-us">
+        <h2><i class="fas fa-star"></i> Why Trust Us</h2>
+        <div class="stats">
+            <div class="stat-item">
+                <i class="fas fa-building"></i>
+                <span class="stat-number">10+</span>
+                <span class="stat-label">Global Offices</span>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-globe-americas"></i>
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Markets Served</span>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-check-circle"></i>
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Projects Live</span>
+            </div>
+        </div>
+        <div class="mastery-grid" style="margin-top: 3rem;">
+            <div class="mastery-item">
+                <div class="icon-box">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3>Global Reach</h3>
+                <p>10+ offices, 50+ markets, one contract, zero borders.</p>
+            </div>
+            <div class="mastery-item">
+                <div class="icon-box success">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h3>Fast & Flexible</h3>
+                <p>Agile delivery, tailored pricing, results in weeks - not months.</p>
+            </div>
+            <div class="mastery-item">
+                <div class="icon-box warning">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3>Proven Impact</h3>
+                <p>500+ projects live, certified in Salesforce, Odoo, blockchain, and more.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product -->
+    <section id="products">
+        <h2><i class="fas fa-rocket"></i> Flagship Product</h2>
+        <div class="product-card">
+            <div class="product-header">
+                <div class="icon-box accent">
+                    <i class="fas fa-key"></i>
+                </div>
+                <div>
+                    <h3>KeyNexusAI</h3>
+                </div>
+            </div>
+            <p class="subtitle">
+                <i class="fas fa-server"></i>
+                Distributed Password Recovery Platform
+            </p>
+            <p style="margin-bottom: 2rem;">Leverage HPC clusters (SLURM, PBS, LSF) and AI-driven automation to crack even the toughest encryption at scale.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-bolt"></i>Auto-triggered campaigns on new datasets</li>
+                <li><i class="fas fa-chart-line"></i>End-to-end tracking across pluggable engines (Hashcat, John the Ripper)</li>
+                <li><i class="fas fa-file-archive"></i>Supported formats: PDF, Office, ZIP/RAR, BitLocker, FileVault2, APFS, TrueCrypt, VeraCrypt, WPA2, custom algorithms</li>
+                <li><i class="fas fa-infinity"></i>License: Perpetual use</li>
+                <li><i class="fas fa-sync-alt"></i>Support: Annual updates included</li>
+            </ul>
+            <div align="center">
+                <a href="KeyNexusAI-Catalog.pdf" class="cta-button">
+                    <i class="fas fa-download"></i>
+                    Download Catalog
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+        <h2><i class="fas fa-comments"></i> Let's Talk</h2>
+        <p>Scitex Pte Ltd is your one-stop shop for global trade.<br>Let's get your business the tech it needs - today.</p>
+        <a href="mailto:contact@scitex.sg" class="cta-button">
+            <i class="fas fa-paper-plane"></i>
+            Get in Touch
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><i class="far fa-copyright"></i> 2025 Scitex Pte Ltd. All rights reserved.</p>
+        <p>Scitex Pte Ltd, 111 North Bridge Road, #20-25, Peninsula Plaza, Singapore (179098)</p>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            
+            // Update button text and icon
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            
+            if (newTheme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+                themeText.textContent = 'Light';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeText.textContent = 'Dark';
+            }
+            
+            // Save preference
+            localStorage.setItem('theme', newTheme);
+        }
+        
+        // Load saved theme preference
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+            
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            
+            if (savedTheme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+                themeText.textContent = 'Light';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeText.textContent = 'Dark';
+            }
+        });
+    </script>
+</body>
+</html>
